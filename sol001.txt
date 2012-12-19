@@ -1,0 +1,2 @@
+"lo register" could be a reference to "low" registers. In Thumb the registers are split in to low register (r0-r7) and high registers (r8 and above). In Thumb-1 many data processing instructions could only reference the low registers. That would kind of fit with the instruction the error reports. 
+

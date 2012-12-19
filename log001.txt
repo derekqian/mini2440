@@ -1,0 +1,50 @@
+derek@svl6:~/mini2440/uboot$ make mini2440_config
+make: arm-linux-gcc: Command not found
+Configuring for mini2440 board...
+derek@svl6:~/mini2440/uboot$ make mini2440_config CROSS_COMPILE=arm-linux-gnueabi-
+Configuring for mini2440 board...
+derek@svl6:~/mini2440/uboot$ make -j4 CROSS_COMPILE=arm-linux-gnueabi-
+for dir in tools examples api_examples ; do make -C $dir _depend ; done
+Generating include/autoconf.mk
+make[1]: Entering directory `/home/derek/mini2440/uboot/tools'
+make[1]: Nothing to be done for `_depend'.
+make[1]: Leaving directory `/home/derek/mini2440/uboot/tools'
+make[1]: Entering directory `/home/derek/mini2440/uboot/examples'
+make[1]: Nothing to be done for `_depend'.
+make[1]: Leaving directory `/home/derek/mini2440/uboot/examples'
+make[1]: Entering directory `/home/derek/mini2440/uboot/api_examples'
+make[1]: Nothing to be done for `_depend'.
+make[1]: Leaving directory `/home/derek/mini2440/uboot/api_examples'
+make -C tools all
+make -C examples all
+make -C api_examples all
+make[1]: Entering directory `/home/derek/mini2440/uboot/tools'
+gcc -g -Wall -pedantic -idirafter /home/derek/mini2440/uboot/include -idirafter /home/derek/mini2440/uboot/include2 -idirafter /home/derek/mini2440/uboot/include -DTEXT_BASE=0x33F80000 -DUSE_HOSTCC -O -c -o envcrc.o envcrc.c
+make -C cpu/arm920t start.o
+make[1]: Entering directory `/home/derek/mini2440/uboot/examples'
+arm-linux-gnueabi-gcc -g  -Os   -fno-strict-aliasing  -fno-common -ffixed-r8 -msoft-float  -D__KERNEL__ -DTEXT_BASE=0x33F80000 -I/home/derek/mini2440/uboot/include -fno-builtin -ffreestanding -nostdinc -isystem /usr/lib/gcc/arm-linux-gnueabi/4.6/include -pipe  -DCONFIG_ARM -D__ARM__ -march=armv4t -mabi=apcs-gnu -mno-thumb-interwork -Wall -Wstrict-prototypes -c -o stubs.o stubs.c
+make[1]: Entering directory `/home/derek/mini2440/uboot/api_examples'
+make[1]: Entering directory `/home/derek/mini2440/uboot/cpu/arm920t'
+arm-linux-gnueabi-gcc  -D__ASSEMBLY__ -g  -Os   -fno-strict-aliasing  -fno-common -ffixed-r8 -msoft-float  -D__KERNEL__ -DTEXT_BASE=0x33F80000 -I/home/derek/mini2440/uboot/include -fno-builtin -ffreestanding -nostdinc -isystem /usr/lib/gcc/arm-linux-gnueabi/4.6/include -pipe  -DCONFIG_ARM -D__ARM__ -march=armv4t -mabi=apcs-gnu -mno-thumb-interwork -c -o start.o start.S
+arm-linux-gnueabi-ar crv libglue.a 
+{standard input}: Assembler messages:
+{standard input}:22: Error: lo register required -- `ldr ip,[r8,#32]'
+{standard input}:23: Error: lo register required -- `ldr pc,[ip,#0]'
+
+...
+
+{standard input}:182: Error: lo register required -- `ldr ip,[r8,#32]'
+{standard input}:183: Error: lo register required -- `ldr pc,[ip,#80]'
+make[1]: Leaving directory `/home/derek/mini2440/uboot/api_examples'
+make -C lib_generic/
+make[1]: *** [stubs.o] Error 1
+make[1]: Leaving directory `/home/derek/mini2440/uboot/examples'
+make[1]: Leaving directory `/home/derek/mini2440/uboot/cpu/arm920t'
+make: *** [examples] Error 2
+make: *** Waiting for unfinished jobs....
+gcc -g  -idirafter /home/derek/mini2440/uboot/include -idirafter /home/derek/mini2440/uboot/include2 -idirafter /home/derek/mini2440/uboot/include -DTEXT_BASE=0x33F80000 -DUSE_HOSTCC -c -o environment.o environment.c
+gcc -g -Wall -pedantic -idirafter /home/derek/mini2440/uboot/include -idirafter /home/derek/mini2440/uboot/include2 -idirafter /home/derek/mini2440/uboot/include -DTEXT_BASE=0x33F80000 -DUSE_HOSTCC -O -c -o ubsha1.o ubsha1.c
+gcc -Wall -pedantic -idirafter /home/derek/mini2440/uboot/include -idirafter /home/derek/mini2440/uboot/include2 -idirafter /home/derek/mini2440/uboot/include -DTEXT_BASE=0x33F80000 -DUSE_HOSTCC -O -o envcrc envcrc.o crc32.o environment.o sha1.o
+gcc -Wall -pedantic -idirafter /home/derek/mini2440/uboot/include -idirafter /home/derek/mini2440/uboot/include2 -idirafter /home/derek/mini2440/uboot/include -DTEXT_BASE=0x33F80000 -DUSE_HOSTCC -O -o ubsha1 ubsha1.o sha1.o
+make[1]: Leaving directory `/home/derek/mini2440/uboot/tools'
+make: *** wait: No child processes.  Stop.
